@@ -1,18 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <StartupObject></StartupObject>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="async_await_task_HowToUse\Program01.cs" />
     <Compile Remove="async_await_task_HowToUse\Program02.cs" />
     <Compile Remove="async_await_task_HowToUse\Program03.cs" />
     <Compile Remove="async_await_task_HowToUse\Program04.cs" />
+    <Compile Remove="async_await_task_HowToUse\Program06.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="async_await_task_Principle\" />
+    <Folder Include="thread_task\" />
   </ItemGroup>
 
 </Project>

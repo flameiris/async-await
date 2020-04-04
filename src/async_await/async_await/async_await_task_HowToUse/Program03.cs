@@ -24,8 +24,8 @@ namespace async_await
         {
             Console.WriteLine($"主线程执行2  线程id={Thread.CurrentThread.ManagedThreadId}");
 
-            //这里没有用 await,所以下面的代码可以继续执行
-            //但是如果上面是 await GetName()，下面的代码就不会立即执行，输出结果就不一样了。
+            //这里是 var name = GetName()，没有使用 await ，主线程执行完 GetName 后会继续执行后面的代码
+            //但是如果使用 var name = await GetName()，主线程就会在这里做标记并挂起，等待。。。
             //GetName() 方法返回 Task<string> 类型
             Console.WriteLine("调用GetName 开始");
             var name = GetName();
@@ -34,7 +34,7 @@ namespace async_await
 
             //这里调用 await name
             //主线程大概是做标记， 先返回到调用方法处继续执行代码
-            //主线程执行完毕后, 新线程如果未执行完毕，则主线程执行挂起等待做标记的代码（等待新线程执行完毕）；如新线程执行完毕，主线程直接执行代码
+            //主线程执行完毕后, 新线程如果未执行完毕，则主线程执行挂起等待后续执行做标记的代码（等待新线程执行完毕）；如新线程执行完毕，主线程直接执行做标记的代码
             Console.WriteLine($"线程id={Thread.CurrentThread.ManagedThreadId} 获取到 GetName() 的返回值为 {await name}");
             //此后是新线程执行代码
             Console.WriteLine($"新线程执行3  线程id={Thread.CurrentThread.ManagedThreadId}");
@@ -44,11 +44,13 @@ namespace async_await
         {
             // 这里还是主线程
             Console.WriteLine($"主线程执行3  线程id={Thread.CurrentThread.ManagedThreadId}");
-            //Task.Run() 创建新线程，并且执行线程（此时 主线程 和 新线程 是同时在运行）
+            //主线程执行 Task.Run() 创建新线程，并且执行线程（此时 主线程 和 新线程 是同时在运行）
+            //主线程中 GetName() 方法返回Task<string>，并执行GetName() 方法后的代码
+            //新线程执行 Task.Run() 中的内容
             return await Task.Run(() =>
             {
                 Console.WriteLine($"新线程执行1  线程id={Thread.CurrentThread.ManagedThreadId}");
-                Thread.Sleep(1000);
+                Thread.Sleep(5000);
                 Console.WriteLine($"新线程执行2  线程id={Thread.CurrentThread.ManagedThreadId}");
                 return "Flameiris";
             });
