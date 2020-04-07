@@ -18,6 +18,7 @@ namespace async_await
         //2. OnCompleted()中传入的委托 
         static void Main()
         {
+
             Console.WriteLine($"主线程执行1  线程id={Thread.CurrentThread.ManagedThreadId}");
             var task = Task.Run(() =>
             {
