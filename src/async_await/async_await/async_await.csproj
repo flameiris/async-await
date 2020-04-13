@@ -21,6 +21,7 @@
     <Compile Remove="async_await_task_Principle\Program21.cs" />
     <Compile Remove="expression\Program41.cs" />
     <Compile Remove="LINQ\Program51.cs" />
+    <Compile Remove="async_await_task_HowToUse\Program07.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +29,7 @@
     <Folder Include="async_await_task_Principle\" />
     <Folder Include="expression\" />
     <Folder Include="LINQ\" />
+    <Folder Include="async_await_task_HowToUse\" />
     <Folder Include="thread_task\" />
   </ItemGroup>
 
